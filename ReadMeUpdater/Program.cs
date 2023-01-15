@@ -108,7 +108,7 @@ int DayProgress = puzzles.Count;
 List<string> ReadMe = new()
             {
                 $"# Advent of Code {year}",
-                "- My attempt to catch up on all the Advents of Code. I'm starting this in 2022 ",
+                "- My attempt to catch up on all the Advents of Code. I'm starting this in 2023 ",
                 "- ",
                 "",
                 $"## Progression:  ![Progress](https://progress-bar.dev/{DayProgress}/?scale=25&title=projects&width=240&suffix=/25)",
