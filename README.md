@@ -1,6 +1,6 @@
 # Advent of Code 2021
 - My attempt to catch up on all the Advents of Code. I'm starting this in 2023 
-- 
+- updating test
 
 ## Progression:  ![Progress](https://progress-bar.dev/3/?scale=25&title=projects&width=240&suffix=/25)
 
