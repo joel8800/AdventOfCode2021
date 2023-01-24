@@ -15,6 +15,6 @@
 | [Day 06:  Lanternfish](https://adventofcode.com/2021/day/6) | [Solution](./Day06/Program.c) | :star::star: |
 | [Day 07:  The Treachery of Whales](https://adventofcode.com/2021/day/7) | [Solution](./Day07/Program.c) | :star::star: |
 | [Day 08:  Seven Segment Search](https://adventofcode.com/2021/day/8) | [Solution](./Day08/Program.c) | :star::star: |
-| [Day 09:  Smoke Basin](https://adventofcode.com/2021/day/9) | [Solution](./Day09/Program.c) |    |
+| [Day 09:  Smoke Basin](https://adventofcode.com/2021/day/9) | [Solution](./Day09/Program.c) | :star::star: |
 | [Day 10:  Syntax Scoring](https://adventofcode.com/2021/day/10) | [Solution](./Day10/Program.c) | :star::star: |
 | [Day 11:  Dumbo Octopus](https://adventofcode.com/2021/day/11) | [Solution](./Day11/Program.c) |    |
