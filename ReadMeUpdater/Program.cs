@@ -123,7 +123,7 @@ foreach (PuzzleInfo pi in puzzles)
     StringBuilder sb = new();
     sb.Append($"| [Day {pi.PuzzleNumStr}:  ");
     sb.Append($"{pi.PuzzleTitle}](https://adventofcode.com/{year}/day/{pi.PuzzleNum}) ");
-    sb.Append($"| [Solution](./Day{pi.PuzzleNumStr}/Program.c) ");
+    sb.Append($"| [Solution](./Day{pi.PuzzleNumStr}/Program.cs) ");
 
     string star1 = pi.Part1Solved ? ":star:" : " ";
     string star2 = pi.Part2Solved ? ":star:" : " ";
