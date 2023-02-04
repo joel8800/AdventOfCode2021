@@ -1,8 +1,8 @@
 # Advent of Code 2021
-- My attempt to catch up on all the Advents of Code. I'm starting this in 2023 
+- My attempt to catch up on all the Advents of Code. I'm starting this in January 2023 
 - 
 
-## Progression:  ![Progress](https://progress-bar.dev/25/?scale=25&title=projects&width=240&suffix=/25)
+## Progression:  ![Progress](https://progress-bar.dev/50/?scale=50&title=solved&width=240&suffix=50)
 
 
 | Day                                                          | C#                            | Stars |  Solution Description |

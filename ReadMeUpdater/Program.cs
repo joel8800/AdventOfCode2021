@@ -1,18 +1,37 @@
 ﻿using ReadMeUpdater;
 using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 
 const int year = 2021;
-const string progressFile = "progress.txt";
+//const string progressFile = "progress.txt";
+const string progress = "progress.json";
+
+JsonSerializerOptions jOpts = new()
+{
+    WriteIndented = true
+};
+string progressEntry = File.ReadAllText(progress);
+
+List<PuzzleInfo> puzzles = new();
+try
+{
+    puzzles = JsonSerializer.Deserialize<List<PuzzleInfo>>(progressEntry);
+}
+catch (Exception e)
+{
+    Console.WriteLine($"Error reading progress.json: {e}");
+}
+
 
 // read last saved status
-string[] progressEntries = File.ReadAllLines(progressFile);
-List<PuzzleInfo> puzzles = new();
-foreach (string entry in progressEntries)
-{
-    PuzzleInfo pi = new(entry);
-    puzzles.Add(pi);
-}
+//string[] progressEntries = File.ReadAllLines(progressFile);
+//List<PuzzleInfo> puzzles = new();
+//foreach (string entry in progressEntries)
+//{
+//    PuzzleInfo pi = new(entry);
+//    puzzles.Add(pi);
+//}
 
 
 // check status of each challenge, prompt for update if not complete
@@ -66,7 +85,7 @@ foreach (string line in solution)
                 string responseBody = await client.GetStringAsync(url);
 
                 // be a good net citizen and dont DDOS the site
-                Thread.Sleep(5000);
+                Thread.Sleep(3000);
 
                 // find the title
                 Match m = Regex.Match(responseBody, @"--- Day (.*) ---");
@@ -102,16 +121,16 @@ foreach (string line in solution)
 }
 
 
-int DayProgress = puzzles.Count;
+int solved = puzzles.Select(p => p.Part1Solved == true).Count() + puzzles.Select(p => p.Part2Solved == true).Count();
 
 // Formatting the output string for file "Readme.md"
 List<string> ReadMe = new()
             {
                 $"# Advent of Code {year}",
-                "- My attempt to catch up on all the Advents of Code. I'm starting this in 2023 ",
+                "- My attempt to catch up on all the Advents of Code. I'm starting this in January 2023 ",
                 "- ",
                 "",
-                $"## Progression:  ![Progress](https://progress-bar.dev/{DayProgress}/?scale=25&title=projects&width=240&suffix=/25)",
+                $"## Progression:  ![Progress](https://progress-bar.dev/{solved}/?scale=50&title=solved&width=240&suffix=50)",
                 "",
                 "",
                 "| Day                                                          | C#                            | Stars |  Solution Description |",
@@ -139,11 +158,13 @@ File.WriteAllLines("../../../../README.md", ReadMe);
 
 
 // save our progress
-List<string> progressOut = new();
-foreach (PuzzleInfo pi in puzzles)
-    progressOut.Add(pi.MakeDBString());
-File.WriteAllLines(progressFile, progressOut);
+//List<string> progressOut = new();
+//foreach (PuzzleInfo pi in puzzles)
+//    progressOut.Add(pi.MakeDBString());
+//File.WriteAllLines(progressFile, progressOut);
 
+string json = JsonSerializer.Serialize(puzzles, jOpts);
+File.WriteAllText(progress, json);
 
 //=============================================================================
 
