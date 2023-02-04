@@ -2,7 +2,7 @@
 - My attempt to catch up on all the Advents of Code. I'm starting this in 2023 
 - 
 
-## Progression:  ![Progress](https://progress-bar.dev/16/?scale=25&title=projects&width=240&suffix=/25)
+## Progression:  ![Progress](https://progress-bar.dev/25/?scale=25&title=projects&width=240&suffix=/25)
 
 
 | Day                                                          | C#                            | Stars |  Solution Description |
@@ -22,4 +22,13 @@
 | [Day 13:  Transparent Origami](https://adventofcode.com/2021/day/13) | [Solution](./Day13/Program.cs) | :star::star: |
 | [Day 14:  Extended Polymerization](https://adventofcode.com/2021/day/14) | [Solution](./Day14/Program.cs) | :star::star: |
 | [Day 15:  Chiton](https://adventofcode.com/2021/day/15) | [Solution](./Day15/Program.cs) | :star::star: |
-| [Day 16:  Packet Decoder](https://adventofcode.com/2021/day/16) | [Solution](./Day16/Program.cs) |    |
+| [Day 16:  Packet Decoder](https://adventofcode.com/2021/day/16) | [Solution](./Day16/Program.cs) | :star::star: |
+| [Day 17:  Trick Shot](https://adventofcode.com/2021/day/17) | [Solution](./Day17/Program.cs) | :star::star: |
+| [Day 18:  Snailfish](https://adventofcode.com/2021/day/18) | [Solution](./Day18/Program.cs) |    |
+| [Day 19:  Beacon Scanner](https://adventofcode.com/2021/day/19) | [Solution](./Day19/Program.cs) |    |
+| [Day 20:  Trench Map](https://adventofcode.com/2021/day/20) | [Solution](./Day20/Program.cs) |    |
+| [Day 21:  Dirac Dice](https://adventofcode.com/2021/day/21) | [Solution](./Day21/Program.cs) |    |
+| [Day 22:  Reactor Reboot](https://adventofcode.com/2021/day/22) | [Solution](./Day22/Program.cs) |    |
+| [Day 23:  Amphipod](https://adventofcode.com/2021/day/23) | [Solution](./Day23/Program.cs) |    |
+| [Day 24:  Arithmetic Logic Unit](https://adventofcode.com/2021/day/24) | [Solution](./Day24/Program.cs) |    |
+| [Day 25:  Sea Cucumber](https://adventofcode.com/2021/day/25) | [Solution](./Day25/Program.cs) |    |
