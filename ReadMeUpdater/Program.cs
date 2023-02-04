@@ -40,7 +40,7 @@ foreach (PuzzleInfo pi in puzzles)
     if (pi.Part1Solved && pi.Part2Solved)
         continue;
 
-    CheckIfPartsSolved(pi);
+    //CheckIfPartsSolved(pi);
 }
 
 
@@ -110,7 +110,7 @@ foreach (string line in solution)
                 pi.PuzzleNumStr = $"{day:D02}";
                 pi.PuzzleTitle = title;
 
-                CheckIfPartsSolved(pi);
+                //CheckIfPartsSolved(pi);
                 
                 puzzles.Add(pi);
             }
@@ -121,7 +121,7 @@ foreach (string line in solution)
 }
 
 
-int solved = puzzles.Select(p => p.Part1Solved == true).Count() + puzzles.Select(p => p.Part2Solved == true).Count();
+int solved = puzzles.Where(p => p.Part1Solved == true).Count() + puzzles.Where(p => p.Part2Solved == true).Count();
 
 // Formatting the output string for file "Readme.md"
 List<string> ReadMe = new()
