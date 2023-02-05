@@ -130,7 +130,7 @@ List<string> ReadMe = new()
                 "- My attempt to catch up on all the Advents of Code. I'm starting this in January 2023 ",
                 "- ",
                 "",
-                $"## Progression:  ![Progress](https://progress-bar.dev/{solved}/?scale=50&title=solved&width=240&suffix=50)",
+                $"## Progression:  ![Progress](https://progress-bar.dev/{solved}/?scale=50&title=solved&width=400&suffix=%20of%2050)",
                 "",
                 "",
                 "| Day                                                          | C#                            | Stars |  Solution Description |",
