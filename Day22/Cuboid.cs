@@ -121,13 +121,13 @@ namespace Day22
 
         public List<Cuboid> Minus(Cuboid other)
         {
-            List<Tuple<int, int>> xSplits = SplitAxis(this.xMin, this.xMax, other.xMin, other.xMax);
-            List<Tuple<int, int>> ySplits = SplitAxis(this.yMin, this.yMax, other.yMin, other.yMax);
-            List<Tuple<int, int>> zSplits = SplitAxis(this.zMin, this.zMax, other.zMin, other.zMax);
+            List<(int, int)> xSplits = SplitAxis(this.xMin, this.xMax, other.xMin, other.xMax);
+            List<(int, int)> ySplits = SplitAxis(this.yMin, this.yMax, other.yMin, other.yMax);
+            List<(int, int)> zSplits = SplitAxis(this.zMin, this.zMax, other.zMin, other.zMax);
 
             List<Cuboid> splitCubes = new();
 
-            if (xSplits == null || ySplits == null || zSplits == null)
+            if (xSplits.Count == 0 || ySplits.Count == 0 || zSplits.Count == 0)
             {
                 splitCubes.Add(this);
             }
@@ -153,15 +153,13 @@ namespace Day22
             return splitCubes;
         }
 
-        public static List<Tuple<int, int>> SplitAxis(int thisLow, int thisHigh, int otherLow, int otherHigh)
+        public static List<(int, int)> SplitAxis(int thisLow, int thisHigh, int otherLow, int otherHigh)
         {
-            List<Tuple<int, int>> results = new List<Tuple<int, int>>();
+            List<(int, int)> results = new();
             if (thisLow > otherHigh || thisHigh < otherLow)
             {
-                // Do Nothing
-                // No insections
-                // Error-1 && Error-2
-                results = null;
+                // no overlap, return empty list
+                return results;
             }
             else
             {
@@ -170,13 +168,13 @@ namespace Day22
                     if (otherHigh < thisHigh)
                     {
                         // Condition-1
-                        results.Add(new Tuple<int, int>(thisLow, otherHigh));
-                        results.Add(new Tuple<int, int>(otherHigh + 1, thisHigh));
+                        results.Add((thisLow, otherHigh));
+                        results.Add((otherHigh + 1, thisHigh));
                     }
                     else
                     {
                         // Condition-2
-                        results.Add(new Tuple<int, int>(thisLow, thisHigh));
+                        results.Add((thisLow, thisHigh));
                     }
                 }
                 else
@@ -184,15 +182,15 @@ namespace Day22
                     if (otherHigh < thisHigh)
                     {
                         // Condition-3
-                        results.Add(new Tuple<int, int>(thisLow, otherLow - 1));
-                        results.Add(new Tuple<int, int>(otherLow, otherHigh));
-                        results.Add(new Tuple<int, int>(otherHigh + 1, thisHigh));
+                        results.Add((thisLow, otherLow - 1));
+                        results.Add((otherLow, otherHigh));
+                        results.Add((otherHigh + 1, thisHigh));
                     }
                     else
                     {
                         // Condition-4
-                        results.Add(new Tuple<int, int>(thisLow, otherLow - 1));
-                        results.Add(new Tuple<int, int>(otherLow, thisHigh));
+                        results.Add((thisLow, otherLow - 1));
+                        results.Add((otherLow, thisHigh));
                     }
                 }
             }
