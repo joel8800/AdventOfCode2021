@@ -2,10 +2,10 @@
 - My attempt to catch up on all the Advents of Code. I'm starting this in January 2023 
 - 
 
-## Progression:  ![Progress](https://progress-bar.dev/46/?scale=50&title=solved&width=400&suffix=%20of%2050)
+## Progression:  ![Progress](https://progress-bar.dev/47/?scale=50&title=solved&width=400&suffix=%20of%2050)
 
 
-| Day                                                          | C#                            | Stars |  Solution Description |
+| Day                                                          | C#                            | Stars |  Solution Notes  |
 | ------------------------------------------------------------ | ----------------------------- | ----- | -------------------- |
 | [Day 01:  Sonar Sweep](https://adventofcode.com/2021/day/1) | [Solution](./Day01/Program.cs) | :star::star: |
 | [Day 02:  Dive!](https://adventofcode.com/2021/day/2) | [Solution](./Day02/Program.cs) | :star::star: |
@@ -31,4 +31,4 @@
 | [Day 22:  Reactor Reboot](https://adventofcode.com/2021/day/22) | [Solution](./Day22/Program.cs) | :star::star: |
 | [Day 23:  Amphipod](https://adventofcode.com/2021/day/23) | [Solution](./Day23/Program.cs) | :star::star: |
 | [Day 24:  Arithmetic Logic Unit](https://adventofcode.com/2021/day/24) | [Solution](./Day24/Program.cs) | :star::star: |
-| [Day 25:  Sea Cucumber](https://adventofcode.com/2021/day/25) | [Solution](./Day25/Program.cs) |    |
+| [Day 25:  Sea Cucumber](https://adventofcode.com/2021/day/25) | [Solution](./Day25/Program.cs) | :star:  |
