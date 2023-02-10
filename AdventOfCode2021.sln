@@ -57,7 +57,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Day24", "Day24\Day24.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Day25", "Day25\Day25.csproj", "{3651D415-18FE-4A8D-8226-3E3DCF062503}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day24_Tests", "Day24_Tests\Day24_Tests.csproj", "{C546B3D6-F645-4986-90C5-A5E45D2AED23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Day24_Tests", "Day24_Tests\Day24_Tests.csproj", "{C546B3D6-F645-4986-90C5-A5E45D2AED23}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
