@@ -36,16 +36,20 @@ int CountPaths(bool isPart1)
 {
     int pathsFound = 0;
 
-    Queue<(string, HashSet<string>, bool)> Q = new();
+    // setup queue (node, visited, visited2x) and add start node
+    Queue <(string, HashSet<string>, bool)> Q = new();
     Q.Enqueue(("start", new() { "start" }, false));
 
     while (Q.Count > 0)
     {
         var current = Q.Dequeue();
+
+        // assign fields to local variables to make code readable
         string currPos = current.Item1;
         HashSet<string> smallCavesVisited = current.Item2;
         bool visitedCaveTwice = current.Item3;
         
+        //  if we've reached the end, count it and move on
         if (currPos == "end")
         {
             pathsFound += 1;
@@ -54,6 +58,7 @@ int CountPaths(bool isPart1)
 
         foreach (string currNode in graph[currPos])
         {
+            // if we haven't visited this neighbor, add it to the queue
             if (smallCavesVisited.Contains(currNode) == false)
             {
                 HashSet<string> newSmallCavesVisited = CopySet(smallCavesVisited);
