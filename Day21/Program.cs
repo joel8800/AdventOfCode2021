@@ -3,7 +3,7 @@ using Day21;
 
 Console.WriteLine("Day21: Dirac Dice");
 
-string[] input = FileUtil.ReadFileByLine("inputSample.txt");
+string[] input = FileUtil.ReadFileByLine("input.txt");
 
 List<Player> players = new()
 {
