@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Day19
+﻿namespace Day19
 {
     public class Scanner
     {
@@ -14,10 +7,10 @@ namespace Day19
         public int Y { get; set; }
         public int Z { get; set; }
         public List<Beacon> Beacons { get; set; }
-        public List<Beacon> Relationships { get; set; }
+        public List<Vector> Vectors { get; set; }
 
-        public Coord offsets;
-        public int orientation;
+        public Vector OriginOffset;
+        public int Orientation;
 
         public Scanner()
         {
@@ -26,9 +19,9 @@ namespace Day19
             Y = -1;
             Z = -1;
             Beacons = new();
-            Relationships = new();
-            offsets = new(0, 0, 0);
-            orientation = 0;
+            Vectors = new();
+            OriginOffset = new(0, 0, 0);
+            Orientation = 0;
         }
 
         public Scanner(int id, List<Beacon> beacons)
@@ -38,32 +31,35 @@ namespace Day19
             Y = -1;
             Z = -1;
             Beacons = beacons;
-            Relationships = CalculateRelationships();
-            offsets = new(0, 0, 0);
-            orientation = 0;
+            Vectors = CalculateVectors();
+            OriginOffset = new(0, 0, 0);
+            Orientation = 0;
         }
 
-        private List<Beacon> CalculateRelationships()
+        private List<Vector> CalculateVectors()
         {
-            Console.WriteLine($"Calculating relationships for scanner {Id}, number of beacons seen {Beacons.Count}");
-            List<Beacon> rels = new();
+            //Console.Write($"Calculating vector relationships for scanner {Id,2}, ");
+            //Console.WriteLine($"number of beacons seen {Beacons.Count}");
+
+            List<Vector> rels = new();
 
             for (int i = 0; i < Beacons.Count; i++)
             {
                 for (int j = i + 1; j < Beacons.Count; j++)
                 {
-                    int xDiff = Math.Abs(Beacons[i].X - Beacons[j].X);
-                    int yDiff = Math.Abs(Beacons[i].Y - Beacons[j].Y);
-                    int zDiff = Math.Abs(Beacons[i].Z - Beacons[j].Z);
-
-                    List<int> diffs = new() { xDiff, yDiff, zDiff };
+                    List<int> diffs = new()
+                    {
+                        Math.Abs(Beacons[i].X - Beacons[j].X),
+                        Math.Abs(Beacons[i].Y - Beacons[j].Y),
+                        Math.Abs(Beacons[i].Z - Beacons[j].Z)
+                    };
                     diffs.Sort();
-                    Beacon r = new(diffs[0], diffs[1], diffs[2]);
-                    //Console.WriteLine(r.ToString());
-                    rels.Add(r);
+                    Vector v = new(diffs[0], diffs[1], diffs[2]);
+                    //Console.WriteLine(v.ToString());
+                    rels.Add(v);
                 }
             }
-            Console.WriteLine();
+            
             return rels;
         }
 
@@ -75,18 +71,25 @@ namespace Day19
                 return true;
         }
 
+        public void PrintScannerInfo()
+        {
+            Console.Write($"==== Scanner {Id,2}: ");
+            Console.WriteLine($"[{X,6},{Y,6},{Z,6}]");
+            Console.Write("Origin Offset  : ");
+            Console.WriteLine($"[{OriginOffset.x,6},{OriginOffset.y,6},{OriginOffset.z,6}]");
+        }
+
         public void PrintBeacons()
         {
-            Console.WriteLine($"===== Scanner {Id} =====");
-            foreach (Beacon b in Beacons)
-            {
-                Console.WriteLine($"X:{b.X,-8} Y:{b.Y,-8} Z:{b.Z,-8}"); // M:{b.Manhattan, -8}");
-            }
             Console.WriteLine($"Beacons: {Beacons.Count}");
+            foreach (Beacon b in Beacons)
+                Console.WriteLine($"[{b.X,6},{b.Y,6},{b.Z,6}]");
+            
+            Console.WriteLine();
         }
 
 #pragma warning disable 1717
-        private Coord RotateCoord(Coord co, int orientation)
+        private Vector RotateVector(Vector co, int orientation)
         {
             var (x, y, z) = co;
 
@@ -118,85 +121,82 @@ namespace Day19
                 case 23: (x, y, z) = ( y,  z,  x); break;
             }
 
-            return new Coord(x, y, z);
+            return new Vector(x, y, z);
         }
 #pragma warning restore
 
-        // rotate the remote scanner and return the number of common beacons
+        // Rotate the remote scanner and return the number of common beacons
         public int RotateRemoteScanner(Scanner remoteScanner, int orientation)
         {
             // reorient beacons in remote scanner
             foreach (Beacon b in remoteScanner.Beacons)
             {
-                Coord co = new(b.X, b.Y, b.Z);
-                b.coord = RotateCoord(co, orientation);
+                Vector co = new(b.X, b.Y, b.Z);
+                b.Location = RotateVector(co, orientation);
             }
 
-            // get differences between all beacons
-            int matches = 0;
-            List<Coord> diffs = new();
-
+            // compare each beacon of this scanner to each 
+            // beacon of the remote scanner, add each comparison to a list
+            List<Vector> diffs = new();
             for (int i = 0; i < Beacons.Count; i++)
             {
                 for (int j = 0; j < remoteScanner.Beacons.Count; j++)
                 {
-                    int x = Beacons[i].coord.x - remoteScanner.Beacons[j].coord.x;
-                    int y = Beacons[i].coord.y - remoteScanner.Beacons[j].coord.y;
-                    int z = Beacons[i].coord.z - remoteScanner.Beacons[j].coord.z;
+                    int x = Beacons[i].Location.x - remoteScanner.Beacons[j].Location.x;
+                    int y = Beacons[i].Location.y - remoteScanner.Beacons[j].Location.y;
+                    int z = Beacons[i].Location.z - remoteScanner.Beacons[j].Location.z;
 
-                    Coord co = new(x, y, z);
+                    Vector co = new(x, y, z);
                     diffs.Add(co);
                 }
             }
 
-            // group by value, return the most common coord
+            // group by value, return the most common Location
             var results = diffs.GroupBy(x => x)
                 .Select(x => new { Offsets = x.Key, Count = x.Count() })
                 .OrderByDescending(x => x.Count)
                 .First();
 
-            //var results = sums.GroupBy(g => g).OrderByDescending(c => c.Count);
-            //var results = from co in sums
-            //              group co by co into g
-            //              let count = g.Count()
-            //              orderby count ascending
-            //              select new { Count = count, x = g.Key.x, y =g.Key.y, z = g.Key.z };
+            int matches = 0;
             if (results != null)
             {
                 matches = results.Count;
 
                 if (matches >= 12)
                 {
-                    //Console.WriteLine($"{results.Offsets.x}, {results.Offsets.y}, {results.Offsets.z}");
-                    remoteScanner.offsets = new(results.Offsets.x, results.Offsets.y, results.Offsets.z);
-                    remoteScanner.orientation = orientation;
+                    //Console.WriteLine($"[{results.Offsets.x}, {results.Offsets.y}, {results.Offsets.z}]");
+                    remoteScanner.OriginOffset = new(results.Offsets.x, results.Offsets.y, results.Offsets.z);
+                    remoteScanner.Orientation = orientation;
                 }
             }
 
             return matches;
         }
 
+        // Place and orient scanner relative to our origin scanner at [0, 0, 0]
+        // This method should only ever be called on a scanner that has not been placed
         public void Reposition()
         {
-            Coord rotatedOrigin = RotateCoord(new Coord(X, Y, Z), orientation);
-            //Coord originOffsets = RotateCoord(new Coord(offsets.x, offsets.y, offsets.z), orientation);
+            if (IsPlaced())
+            {
+                Console.WriteLine("Error: Reposition() got called on a placed scanner");
+                return;
+            }
 
             // update scanner origin
-            X = rotatedOrigin.x + offsets.x;
-            Y = rotatedOrigin.y + offsets.y;
-            Z = rotatedOrigin.z + offsets.z;
+            X = OriginOffset.x;
+            Y = OriginOffset.y;
+            Z = OriginOffset.z;
 
             // update beacons
             foreach (Beacon b in Beacons)
             {
-                Coord rotatedBeacon = RotateCoord(new Coord(b.X, b.Y, b.Z), orientation);
-                b.X = rotatedBeacon.x + offsets.x;
-                b.Y = rotatedBeacon.y + offsets.y;
-                b.Z = rotatedBeacon.z + offsets.z;
-                b.coord = new(b.X, b.Y, b.Z);
+                Vector rotatedBeacon = RotateVector(new Vector(b.X, b.Y, b.Z), Orientation);
+                b.X = rotatedBeacon.x + OriginOffset.x;
+                b.Y = rotatedBeacon.y + OriginOffset.y;
+                b.Z = rotatedBeacon.z + OriginOffset.z;
+                b.Location = new(b.X, b.Y, b.Z);
             }
-
         }
-
     }
 }

@@ -49,19 +49,19 @@ while (unknownScanners.Count > 0)
                 continue;
 
             // if 66 relationships match, then 12 beacons are common
-            var sharedBeacons = s0.Relationships.Intersect(s1.Relationships);
+            var sharedBeacons = s0.Vectors.Intersect(s1.Vectors);
             if (sharedBeacons.Count() >= 66)
             {
-                Console.Write($"scanner {s0.Id} and scanner {s1.Id} share at least 12 beacons");
+                //Console.Write($"scanner {s0.Id,2} and scanner {s1.Id,2} share at least 12 beacons, ");
             
                 // check each of the 24 possible orientations
-                // find the on that yields the 12 common beacons
+                // find the one that yields the 12 common beacons
                 for (int i = 0; i < 24; i++)
                 {
                     int matches = s0.RotateRemoteScanner(s1, i);
                     if (matches >= 12)
                     {
-                        Console.WriteLine($"rotation:{i}");
+                        //Console.WriteLine($"rotation: {i,2}");
                         s1.Reposition();
                         resolvedScanner = s1;
                         foundOne = true;
@@ -88,13 +88,13 @@ while (unknownScanners.Count > 0)
 
 
 // add all the beacons from all known scanners to hash set to remove duplicates
-HashSet<Coord> allBeacons = new HashSet<Coord>();
+HashSet<Beacon> allBeacons = new();
 foreach (Scanner s in knownScanners)
 {
+    //s.PrintScannerInfo();
+    //s.PrintBeacons();
     foreach (Beacon b in s.Beacons)
-    {
-        allBeacons.Add(b.coord);
-    }
+        allBeacons.Add(b);
 }
 
 int answerPt1 = allBeacons.Count;
@@ -111,8 +111,12 @@ for (int i = 0; i < knownScanners.Count; i++)
         int yDiff = Math.Abs(knownScanners[i].Y - knownScanners[j].Y);
         int zDiff = Math.Abs(knownScanners[i].Z - knownScanners[j].Z);
 
+        //Console.Write($"from:[{knownScanners[i].X,5},{knownScanners[i].Y,5},{knownScanners[i].Z,5}] ->");
+        //Console.Write($"  to:[{knownScanners[j].X,5},{knownScanners[j].Y,5},{knownScanners[j].Z,5}] = ");
+        //Console.WriteLine($"diff:[{xDiff,5},{yDiff,5},{zDiff,5}] ==> manhattan:{xDiff + yDiff + zDiff}");
+
         if (manhattan < (xDiff + yDiff + zDiff))
-            manhattan = (xDiff + yDiff + zDiff);
+            manhattan = xDiff + yDiff + zDiff;
     }
 }
 
