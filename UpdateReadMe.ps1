@@ -1,3 +1,27 @@
+# =====================================================================================================================
+#
+# PowerShell script to update README.md to display a table of puzzles and stars collected
+# on AdventOfCode challenges
+#
+# This script uses the users session cookie to get the users main page.
+# - It gets the number of stars for each day
+# - For each day with stars, it will go to that days puzzle to retrieve the title
+# - A progress bar is generated using the number of stars out of 50
+# - A table that displays the puzzles solved and number stars for each day
+# - JSON file with the current status is saved to not have to retrieve the same information daily
+# 
+# The user needs to get their unique session cookie from their browser and save it to the
+# cookie file ($cookieFile).  It should be one line in the form "session=ba32a3...."
+# 
+# Set the $year variable to the current year.
+#
+# Change the $header here string to include any additional text to the section above the progress
+# bar and table.
+#
+# The Solution Notes column is a place holder. The user should edit the DescText fields in the daily
+# status JSON file.
+# =====================================================================================================================
+
 $year = 2021
 $url = "https://adventofcode.com/$year"
 $cookieFile = '.\aocCookie'
@@ -9,10 +33,20 @@ $cookieFile = '.\aocCookie'
 # This gets put at the top of the README.md
 $header = @"
 # Advent of Code $year
-- Originally completed this season as part of a coding challenge at work 
-- We were given a week to complete each Day of AoC2021
-- Completed nearly all of the puzzles on time as I was learning C# and VB.NET for the first time
-- Re-doing these puzzles to see if my current knowledge would do them differently or better
+- Originally completed this season as part of a coding challenge at work.
+- We were given a week to compleate each Day of AoC2021
+- Completed nearly all of the puzzles on time as I was learning C# and VB.NET for first time.
+- Redoing these puzzles to see if my current knowledge would lead me to do them differently or better.
+
+#### Progress:
+<img style="display: block; margin-left: auto; margin-right: auto; width: 100%;"
+
+"@
+
+$pbFooter = @"
+
+`talt=`"Progress Bar`">
+</img>
 
 "@
 
@@ -35,9 +69,8 @@ function Get-DayTitle {
 # Generate README.md
 function Write-ReadMeFile {
     $stars = Get-StarCount
-    $progressBar = "#### Progress:  ![Progress](https://progress-bar.dev/$stars/?scale=50&title=StarsCollected&width=480&suffix=/50)`r`n"
-
-    $readme = $header + $progressBar + ($sortedDays | ConvertTo-MarkDownTable) 
+    $progressBar = "`tsrc=`"https://progress-bar.dev/$stars/?scale=50&title=StarsCollected&width=700&suffix=/50`""
+    $readme = $header + $progressBar + $pbFooter + ($sortedDays | ConvertTo-MarkDownTable) 
     Set-Content -Path '.\README.md' -Value $readme
 }
 
@@ -83,7 +116,6 @@ $cookie = Get-Content -Path $cookieFile -TotalCount 1
 $parts = $cookie -Split '='
 
 # Make a session cookie object
-#$sessCookie = New-Object System.Net.Cookie
 $sessCookie = [System.Net.Cookie]::new()
 $sessCookie.Name = $parts[0]
 $sessCookie.Value = $parts[1]

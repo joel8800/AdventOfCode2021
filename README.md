@@ -1,9 +1,14 @@
 # Advent of Code 2021
-- Originally completed this season as part of a coding challenge at work 
-- We were given a week to complete each Day of AoC2021
-- Completed nearly all of the puzzles on time as I was learning C# and VB.NET for the first time
-- Re-doing these puzzles to see if my current knowledge would do them differently or better
-#### Progress:  ![Progress](https://progress-bar.dev/50/?scale=50&title=StarsCollected&width=480&suffix=/50)
+- Originally completed this season as part of a coding challenge at work.
+- We were given a week to compleate each Day of AoC2021
+- Completed nearly all of the puzzles on time as I was learning C# and VB.NET for first time.
+- Redoing these puzzles to see if my current knowledge would lead me to do them differently or better.
+
+#### Progress:
+<img style="display: block; margin-left: auto; margin-right: auto; width: 100%;"
+	src="https://progress-bar.dev/50/?scale=50&title=StarsCollected&width=700&suffix=/50"
+	alt="Progress Bar">
+</img>
 | Day | Status | Source | Solution Notes |
  | - | - | - | - |
  | [Day 01:  Sonar Sweep](https://adventofcode.com/2021/day/1) | :star::star: | [Solution](./Day01/Program.cs) | Add descriptive text here |
